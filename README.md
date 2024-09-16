@@ -42,3 +42,14 @@ Este diagrama muestra a alto nivel los componentes del sistema junto a sus inter
    - Se encarga de la gestion de la carga del archivo, tiene como objetivo la segmentacion del archivo con el fin de paralelizar la carga
 3. **Balance Manager**:
    - Proporciona la logica necesaria para la gestion del balance de uno o varios usuarios, haciendo de nexo con la base de datos
+
+# Deep Dive: File Processor
+Este diagrama muestra a nivel de detalle como se comporta el `File Processor` los componentes que posee y como se relacionan entre si. El objetivo del `File Processor` es gestionar la carga, division y procesamiento en paralelo de los archivos subidos.
+![](./System_Design_File_Uploader_Deep_Dive.svg)
+
+1. **Chunk File Parallel:**
+   - Es el componente encargado de separa el archivo en varios `Chunks` para su potencial procesamiento en paralelo.
+2. **File Worker:**
+   - Provee la logica necesaria para el procesamiento de cada uno de los `Chunks` y su informacion. Cuenta con una `Accion` que determina el destino de la misma y un `Notificador` que sera el encargado de notificar el resultado del procesamiento.
+  
+# Deep Dive: API Service
