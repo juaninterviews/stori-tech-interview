@@ -32,7 +32,7 @@ Este diseño cubre los aspectos del servicio de migracion historica de transacci
 # Hight-Level Diagram
 
 Este diagrama muestra a alto nivel los componentes del sistema junto a sus interacciones. No se incluyen detalles de implementacion.
-![](./Hight-Level-System-Design.svg)
+![](assets/Hight-Level-System-Design.svg)
 
 ---
 
@@ -45,7 +45,7 @@ Este diagrama muestra a alto nivel los componentes del sistema junto a sus inter
 
 # Deep Dive: File Processor
 Este diagrama muestra a nivel de detalle como se comporta el `File Processor` los componentes que posee y como se relacionan entre si. El objetivo del `File Processor` es gestionar la carga, division y procesamiento en paralelo de los archivos subidos.
-![](./System_Design_File_Uploader_Deep_Dive.svg)
+![](assets/System_Design_File_Uploader_Deep_Dive.svg)
 
 1. **Chunk File Parallel:**
    - Es el componente encargado de separa el archivo en varios `Chunks` para su potencial procesamiento en paralelo.
@@ -53,3 +53,31 @@ Este diagrama muestra a nivel de detalle como se comporta el `File Processor` lo
    - Provee la logica necesaria para el procesamiento de cada uno de los `Chunks` y su informacion. Cuenta con una `Accion` que determina el destino de la misma y un `Notificador` que sera el encargado de notificar el resultado del procesamiento.
   
 # Deep Dive: API Service
+```
+POST /v1/migrate
+Content-Type: multipart/form-data
+Content-Disposition: form-data; name="file"
+{
+    "failedRecords": [
+        {
+            "record": {
+                "amount": "34.33",
+                "id": "189",
+                "timestamp": "",
+                "userId": "5"
+            },
+            "error": "multiple errors: [datetime is null or invalid]"
+        },
+        {
+            "record": {
+                "amount": "",
+                "id": "196",
+                "timestamp": "2024-09-27T00:16:21Z",
+                "userId": "1"
+            },
+            "error": "multiple errors: [amount is null or invalid]"
+        }
+    ],
+    "successRecordsCount": 198
+}
+```
